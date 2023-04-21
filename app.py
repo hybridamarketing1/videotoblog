@@ -19,7 +19,7 @@ st.set_page_config(page_title="YouTube Transcript to Article", page_icon=":memo:
 
 
 # Set the API key
-api_key = st.secret["OPENAI_API_KEY"]
+api_key = st.secrets["OPENAI_API_KEY"]
 
 
 def extract_video_id(url: str) -> Optional[str]:
