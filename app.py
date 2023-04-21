@@ -139,6 +139,7 @@ def main():
                     if error:
                         st.error(error)
                     else:
+                        send_facebook_pixel_event("StartTrial")
                         generated_blog = gpt_transcript(transcript, title=title)
                         st.success("Article Generated Successfully!")
                         st.write(generated_blog)
