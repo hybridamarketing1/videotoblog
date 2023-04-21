@@ -21,7 +21,16 @@ st.set_page_config(page_title="YouTube Transcript to Article", page_icon=":memo:
 # Set the API key
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
-
+def send_facebook_pixel_event(event_name):
+    js_code = f"""
+        <script>
+            if (typeof fbq !== 'undefined') {{
+                fbq('track', '{event_name}');
+            }}
+        </script>
+    """
+    html(js_code, width=0, height=0)
+    
 def extract_video_id(url: str) -> Optional[str]:
     """
     Extracts and returns the video ID from a given YouTube URL.
@@ -177,6 +186,7 @@ def main():
                 authenticator.register_user(email, name, username, password)
                 st.sidebar.success("Registration successful! You can now log in.")
                 st.session_state.signup = False
+                send_facebook_pixel_event("Lead")
             else:
                 st.sidebar.error("Passwords do not match.")
         if st.sidebar.button("Cancel"):
